@@ -31,25 +31,19 @@ public class Level1 implements Screen {
     float xL[] = {MyGame.WIDTH,MyGame.WIDTH*1.5f,MyGame.WIDTH*2f,MyGame.WIDTH*2.5f};
     int yL[] = new int[4];
 
-
-    //asteroids
-    int asteroids_y[]= {360,370};
-    float asteroids_x[] = {1600,2880};
-
     Texture ship = new Texture("ship.png");
     public Level1(MyGame game){
         this.game = game;
         x = 30;
         y = MyGame.HEIGHT/2f - 100f;
         for(int i=0 ; i<4 ; i++){
-//            int rand = random.nextInt(380);
             yL[i] = random.nextInt(440) - 10;
         }
 
-        BgAssets.asteroids[0] = new Texture("asteroids/1.png");
-        BgAssets.asteroids[1] = new Texture("asteroids/2.png");
-        BgAssets.asteroids[2] = new Texture("asteroids/3.png");
-        BgAssets.asteroids[3] = new Texture("asteroids/4.png");
+        BgAssets.asteroids[0] = new Texture("bg/LaserB.png");
+        BgAssets.asteroids[2] = new Texture("bg/LaserG.png");
+        BgAssets.asteroids[1] = new Texture("asteroids/1.png");
+        BgAssets.asteroids[3] = new Texture("coin.png");
 
 
     }
@@ -87,32 +81,14 @@ public class Level1 implements Screen {
                 if (xL[i] < -1280) {
                     score++;
                     xL[i] = MyGame.WIDTH;
-                        //yL[i] = ;
                     yL[i] = random.nextInt(440) - 10;
                 }
             }
-            for (int i=0;i<4;i=i+2){
-                game.batch.draw(BgAssets.laserB,xL[i],yL[i]);
-                game.batch.draw(BgAssets.laserG,xL[i+1],yL[i+1]);
+            for (int i=0;i<4;i++){
+                game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
             }
 
-            //asteroids
-            asteroids_x[0] -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
-            asteroids_x[1] -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
-            if(asteroids_x[0]< - 1280){
-                asteroids_x[0] = 1280;
-                asteroids_y[0] =  random.nextInt(440) - 10;
-            }
-            if(asteroids_x[1]< - 1280){
-                asteroids_x[1] = 1280;
-                asteroids_y[1] =  random.nextInt(440) - 10;
-            }
-            game.batch.draw(BgAssets.asteroids[0],asteroids_x[0],asteroids_y[0]);
-            game.batch.draw(BgAssets.asteroids[1],asteroids_x[1],asteroids_y[1]);
 
-
-            //coins
-            game.batch.draw(BgAssets.coin,coin_x,coin_y);
             coin_x -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
             if(coin_x < -60){
                 coin_x = 2560;
