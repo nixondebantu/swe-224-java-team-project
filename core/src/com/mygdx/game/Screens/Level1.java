@@ -56,7 +56,7 @@ public class Level1 implements Screen {
     public void render(float delta) {
 
         if (notPause){
-            game.batch.begin();
+
 
 
             //buttons
@@ -67,9 +67,7 @@ public class Level1 implements Screen {
                 if (y > 0) y -= speed * Gdx.graphics.getDeltaTime();
             }
 
-            //bg render
-            game.batch.draw(BgAssets.bgLvl1_1,bg_x1,0);
-            game.batch.draw(BgAssets.bgLvl1_2,bg_x2,0);
+            //bg moving
             bg_x1 -= bg_speed;
             if (bg_x1<-1280) bg_x1 = 1280;
             bg_x2 -= bg_speed;
@@ -84,25 +82,28 @@ public class Level1 implements Screen {
                     yL[i] = random.nextInt(440) - 10;
                 }
             }
-            for (int i=0;i<4;i++){
-                game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
-            }
-
 
             coin_x -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
             if(coin_x < -60){
                 coin_x = 2560;
                 coin_y =  random.nextInt(440) - 10;
             }
-
-
-
-            //ship
-            game.batch.draw(ship,x,y);
-
-            game.batch.end();
-
         }
+
+        game.batch.begin();
+        //bg render
+        game.batch.draw(BgAssets.bgLvl1_1,bg_x1,0);
+        game.batch.draw(BgAssets.bgLvl1_2,bg_x2,0);
+
+        //asteroids
+        for (int i=0;i<4;i++){
+            game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
+        }
+        //ship
+        game.batch.draw(ship,x,y);
+        collsion();
+        game.batch.end();
+
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             if(notPause) {
@@ -143,6 +144,26 @@ public class Level1 implements Screen {
 
     @Override
     public void dispose() {
+
+    }
+    public void collsion(){
+        if((x+150 <= xL[0]+90 && x+150 >= xL[0]) || (x <= xL[0]+90 && x >= xL[0])  ){
+            if((y+120 <= yL[0]+332 && y+120 >= yL[0]) || (y <= yL[0]+332 && y >= yL[0])){
+                notPause = false;
+                //Gdx.app.exit();
+            }
+        }
+        if((x+150 <= xL[2]+90 && x+150 >= xL[2]) || (x <= xL[2]+90 && x >= xL[2])  ){
+            if((y+120 <= yL[2]+332 && y+120 >= yL[2]) || (y <= yL[2]+332 && y >= yL[2])){
+                notPause = false;
+                //Gdx.app.exit();
+            }
+        }
+        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+30) || (x <= xL[2]+209 && x >= xL[2])  ){
+            if((y+120 <= yL[2]+250 && y+120 >= yL[2]+10) || (y <= yL[2]+250 && y >= yL[2]+10)){
+                Gdx.app.exit();
+            }
+        }
 
     }
 }
