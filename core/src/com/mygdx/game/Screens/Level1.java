@@ -56,9 +56,6 @@ public class Level1 implements Screen {
     public void render(float delta) {
 
         if (notPause){
-
-
-
             //buttons
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
                 if (y < MyGame.HEIGHT - 115) y += speed * Gdx.graphics.getDeltaTime();
@@ -105,20 +102,20 @@ public class Level1 implements Screen {
         game.batch.end();
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             if(notPause) {
                 notPause = false;
-                //game.pause();
+                game.pause();
             }
             else {
                 notPause = true;
-                //game.resume();
+                game.resume();
             }
-            try {               //delay maker
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {               //delay maker
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
         }
     }
 
@@ -147,21 +144,22 @@ public class Level1 implements Screen {
 
     }
     public void collsion(){
-        if((x+150 <= xL[0]+90 && x+150 >= xL[0]) || (x <= xL[0]+90 && x >= xL[0])  ){
-            if((y+120 <= yL[0]+332 && y+120 >= yL[0]) || (y <= yL[0]+332 && y >= yL[0])){
+        if((x+150 <= xL[0]+90 && x+150 >= xL[0]+60) || (x <= xL[0]+90 && x >= xL[0])  ){
+            if((y+120 <= yL[0]+332 && y+120 >= yL[0]+60) || (y <= yL[0]+272 && y >= yL[0])){
                 notPause = false;
-                //Gdx.app.exit();
+                game.pause();
             }
         }
-        if((x+150 <= xL[2]+90 && x+150 >= xL[2]) || (x <= xL[2]+90 && x >= xL[2])  ){
-            if((y+120 <= yL[2]+332 && y+120 >= yL[2]) || (y <= yL[2]+332 && y >= yL[2])){
+        if((x+150 <= xL[2]+90 && x+150 >= xL[2]+60) || (x <= xL[2]+90 && x >= xL[2])  ){
+            if((y+120 <= yL[2]+332 && y+120 >= yL[2]+60) || (y <= yL[2]+272 && y >= yL[2])){
                 notPause = false;
-                //Gdx.app.exit();
+                game.pause();
             }
         }
-        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+30) || (x <= xL[2]+209 && x >= xL[2])  ){
-            if((y+120 <= yL[2]+250 && y+120 >= yL[2]+10) || (y <= yL[2]+250 && y >= yL[2]+10)){
-                Gdx.app.exit();
+        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[2]+209 && x >= xL[2])  ){
+            if((y+120 <= yL[2]+250 && y+120 >= yL[2]+80) || (y <= yL[2]+170 && y >= yL[2]+10)){
+                notPause = false;
+                game.pause();
             }
         }
 
