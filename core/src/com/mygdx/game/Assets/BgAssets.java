@@ -14,7 +14,8 @@ public class BgAssets {
     public static Texture laserB = new Texture("bg/LaserB.png");
     public static Texture laserG = new Texture("bg/LaserG.png");
     public static Sound clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click.mp3"));
-    public static Texture[] asteroids = new Texture[4];
+    public static Texture[] asteroids = new Texture[6];
+//    asteroids[0] = new Texture("bg/LaserG.png");
 
     public static Texture coin = new Texture("coin.png");
 
