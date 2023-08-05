@@ -102,7 +102,7 @@ public class Level1 implements Screen {
         game.batch.end();
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             if(notPause) {
                 notPause = false;
                 game.pause();
