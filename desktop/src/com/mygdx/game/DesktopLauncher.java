@@ -6,8 +6,8 @@ import com.mygdx.game.MyGame;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
-    //hello
     public static void main (String[] arg) {
+        //hi1
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setForegroundFPS(60);
         config.setTitle("Arcane Adventure");
