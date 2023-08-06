@@ -204,8 +204,8 @@ public class Level2 implements Screen {
 
             }
         }
-        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[2]+209 && x >= xL[2])  ){
-            if((y+120 <= yL[2]+250 && y+120 >= yL[2]+80) || (y <= yL[2]+170 && y >= yL[2]+10)){
+        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[1]+209 && x >= xL[1])  ){
+            if((y+120 <= yL[1]+250 && y+120 >= yL[1]+80) || (y <= yL[1]+170 && y >= yL[1]+10)){
                 if(!BgAssets.explosion.isPlaying()){
                     BgAssets.explosion.play();
                 }
