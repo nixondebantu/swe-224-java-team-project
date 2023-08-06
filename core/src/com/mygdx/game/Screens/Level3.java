@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
 
@@ -92,6 +93,8 @@ public class Level3 implements Screen {
         //bg render
         game.batch.draw(BgAssets.bgLvl3_1,bg_x1,0);
         game.batch.draw(BgAssets.bgLvl3_2,bg_x2,0);
+
+
 
         //asteroids
         for (int i=0;i<7;i++){

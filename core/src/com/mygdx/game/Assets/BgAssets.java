@@ -28,5 +28,6 @@ public class BgAssets {
 
     public static Texture coin = new Texture("coin.png");
     public static BitmapFont font = new BitmapFont(Gdx.files.internal("font/score.fnt"));
+    public static int score = 0;
 
 }

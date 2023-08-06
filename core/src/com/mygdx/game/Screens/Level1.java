@@ -17,7 +17,6 @@ public class Level1 implements Screen {
 
     MyGame game;
     public static float speed = 220;
-    public int score;
     private boolean notPause = true;
     Random random = new Random();
 
@@ -33,6 +32,7 @@ public class Level1 implements Screen {
     //lasers
     float xL[] = {MyGame.WIDTH,MyGame.WIDTH*1.5f,MyGame.WIDTH*2f,MyGame.WIDTH*2.5f};
     int yL[] = new int[4];
+    boolean[] Iscollision =  {true,true,true,true};
 
     //explosion
     ArrayList<explosions> Explosions;
@@ -64,6 +64,10 @@ public class Level1 implements Screen {
     public void render(float delta) {
 
         if (notPause){
+            if(BgAssets.score==10) {
+                game.setScreen(new LoadingScreen(game));
+                this.dispose();
+            }
             //buttons
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
                 if (y < MyGame.HEIGHT - 115) y += speed * Gdx.graphics.getDeltaTime();
@@ -80,14 +84,41 @@ public class Level1 implements Screen {
 
             //leasers
             for (int i = 0; i < 4; i++) {
-                xL[i] -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
-                if (xL[i] < -1280) {
+                if(i==3){
+                    xL[i] -= (MainGameScreen.speed + BgAssets.score * 10) * Gdx.graphics.getDeltaTime() * 2;
+                    if (xL[i] < -300) {
+                        //BgAssets.point.play();
+                        //score++;
+                        if( Iscollision[i] == false ){
+                            BgAssets.point.play();
+                            BgAssets.score++;
+                            Iscollision[i] = true;
+                        }
+                        xL[i] = MyGame.WIDTH;
+                        yL[i] = random.nextInt(440) - 10;
+                    }
+
+                    continue;
+                }
+
+
+
+
+
+                xL[i] -= (MainGameScreen.speed + BgAssets.score * 10) * Gdx.graphics.getDeltaTime() * 2;
+                if (xL[i] < -300) {
                     //BgAssets.point.play();
-                    score++;
+                    //score++;
+                    if( Iscollision[i] ){
+                        BgAssets.point.play();
+                        BgAssets.score++;
+                        Iscollision[i] = true;
+                    }
                     xL[i] = MyGame.WIDTH;
                     yL[i] = random.nextInt(440) - 10;
                 }
             }
+
 
         }
 
@@ -97,12 +128,17 @@ public class Level1 implements Screen {
         game.batch.draw(BgAssets.bgLvl1_2,bg_x2,0);
 
         //score
-        GlyphLayout scoreLatout = new GlyphLayout(BgAssets.font,"Score: "+score);
-        BgAssets.font.draw(game.batch,scoreLatout,10,MyGame.HEIGHT-10);
+        GlyphLayout scoreLatout = new GlyphLayout(BgAssets.font,"Score: "+BgAssets.score);
+        BgAssets.font.draw(game.batch,scoreLatout,50,MyGame.HEIGHT-50);
 
         //asteroids
         for (int i=0;i<4;i++){
+            if(i==3){
+                if(Iscollision[3])game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
+                else continue;
+            }
             game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
+
         }
         //ship
         game.batch.draw(ship,x,y);
@@ -164,7 +200,7 @@ public class Level1 implements Screen {
                     BgAssets.explosion.play();
                 }
                 Explosions.add(new explosions(x+125,y+25));
-
+                Iscollision[0] = false;
 //                notPause = false;
 //                game.pause();
 
@@ -182,7 +218,7 @@ public class Level1 implements Screen {
                 Explosions.add(new explosions(x+125,y+25));
 //                notPause = false;
 //                game.pause();
-
+                Iscollision[2] = false;
 
             }
         }
@@ -194,9 +230,18 @@ public class Level1 implements Screen {
                 Explosions.add(new explosions(x+125,y+25));
 //                notPause = false;
 //                game.pause();
-
+                Iscollision[1] = false;
             }
         }
+        if((x+150 <= xL[3]+100 && x+150 >= xL[3]) || (x <= xL[3]+100 && x >= xL[3])  ){
+            if((y+120 <= yL[3]+101 && y+120 >= yL[3]) || (y <= yL[3]+101 && y >= yL[3])){
+
+                Iscollision[3] = false;
+            }
+        }
+
+
+
 
         //Update explosions
         ArrayList<explosions> explosionsToRemove = new ArrayList<explosions>();

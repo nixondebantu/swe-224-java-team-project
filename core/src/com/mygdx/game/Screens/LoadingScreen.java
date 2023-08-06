@@ -26,12 +26,19 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-            BgAssets.clickSound.play();
             this.dispose();
             game.setScreen(new Level1(game));
         }
+
+
+        if(BgAssets.score==10 && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
+            BgAssets.clickSound.play();
+            game.setScreen(new Level2(game));
+            this.dispose();
+        }
+
+
         game.batch.begin();
 
         game.batch.draw(BgAssets.bgMenu,0,0);
@@ -45,6 +52,7 @@ public class LoadingScreen implements Screen {
             loadBar.end();
             xLoad+=5;
         }
+
     }
 
     @Override
