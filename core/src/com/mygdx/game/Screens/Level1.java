@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
 
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Level1 implements Screen {
@@ -31,6 +33,9 @@ public class Level1 implements Screen {
     float xL[] = {MyGame.WIDTH,MyGame.WIDTH*1.5f,MyGame.WIDTH*2f,MyGame.WIDTH*2.5f};
     int yL[] = new int[4];
 
+    //explosion
+    ArrayList<explosions> Explosions;
+
     Texture ship = new Texture("ship.png");
     public Level1(MyGame game){
         this.game = game;
@@ -44,6 +49,8 @@ public class Level1 implements Screen {
         BgAssets.asteroids[2] = new Texture("bg/LaserG.png");
         BgAssets.asteroids[1] = new Texture("asteroids/1.png");
         BgAssets.asteroids[3] = new Texture("coin.png");
+
+        Explosions = new ArrayList<explosions>();
 
 
     }
@@ -74,6 +81,7 @@ public class Level1 implements Screen {
             for (int i = 0; i < 4; i++) {
                 xL[i] -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
                 if (xL[i] < -1280) {
+                    //BgAssets.point.play();
                     score++;
                     xL[i] = MyGame.WIDTH;
                     yL[i] = random.nextInt(440) - 10;
@@ -99,6 +107,10 @@ public class Level1 implements Screen {
         //ship
         game.batch.draw(ship,x,y);
         collsion();
+
+        for (explosions Explosions : Explosions) {
+            Explosions.render(game.batch);
+        }
         game.batch.end();
 
 
@@ -146,20 +158,41 @@ public class Level1 implements Screen {
     public void collsion(){
         if((x+150 <= xL[0]+90 && x+150 >= xL[0]+60) || (x <= xL[0]+90 && x >= xL[0])  ){
             if((y+120 <= yL[0]+332 && y+120 >= yL[0]+60) || (y <= yL[0]+272 && y >= yL[0])){
-                notPause = false;
-                game.pause();
+                Explosions.add(new explosions(x+125,y+25));
+                //BgAssets.explosion.play();
+//                notPause = false;
+//                game.pause();
+
             }
         }
+
+        //Update explosions
+        ArrayList<explosions> explosionsToRemove = new ArrayList<explosions>();
+        for (explosions  Explosions: Explosions) {
+            Explosions.update(Gdx.graphics.getDeltaTime());
+            if (Explosions.remove)
+                explosionsToRemove.add(Explosions);
+        }
+        Explosions.removeAll(explosionsToRemove);
+
+
         if((x+150 <= xL[2]+90 && x+150 >= xL[2]+60) || (x <= xL[2]+90 && x >= xL[2])  ){
             if((y+120 <= yL[2]+332 && y+120 >= yL[2]+60) || (y <= yL[2]+272 && y >= yL[2])){
-                notPause = false;
-                game.pause();
+                //BgAssets.explosion.play();
+//                notPause = false;
+//                game.pause();
+
+
             }
         }
         if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[2]+209 && x >= xL[2])  ){
             if((y+120 <= yL[2]+250 && y+120 >= yL[2]+80) || (y <= yL[2]+170 && y >= yL[2]+10)){
-                notPause = false;
-                game.pause();
+
+                //BgAssets.explosion.play();
+//                notPause = false;
+//                game.pause();
+
+
             }
         }
 
