@@ -134,7 +134,7 @@ public class Level1 implements Screen {
             }
             //score
             GlyphLayout scoreLatout = new GlyphLayout(BgAssets.font,"Score: "+BgAssets.score);
-            BgAssets.font.draw(game.batch,scoreLatout,50,MyGame.HEIGHT-50);
+            BgAssets.font.draw(game.batch,scoreLatout,MyGame.WIDTH - 300,MyGame.HEIGHT-50);
 
             //asteroids
             for (int i=0;i<4;i++){
