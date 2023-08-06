@@ -171,6 +171,10 @@ public class Level1 implements Screen {
             }
         }
 
+        if (gamePause || scrollPause) {             //pause display message drawing
+            GlyphLayout pauseMessage = new GlyphLayout(BgAssets.font,"Game Paused\nPress:\nEsc - Resume\nR - Restart\nH - Home");
+            BgAssets.font.draw(game.batch,pauseMessage,420,yPause);
+        }
 
 
         game.batch.end();
