@@ -42,7 +42,13 @@ public class LoadingScreen implements Screen {
                 game.setScreen(new Level2(game));
                 this.dispose();
             }
+            else if (BgAssets.score == 20 && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+                BgAssets.clickSound.play();
+                game.setScreen(new Level3(game));
+                this.dispose();
+            }
             else if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+                BgAssets.clickSound.play();
                 this.dispose();
                 game.setScreen(new Level1(game));
             }

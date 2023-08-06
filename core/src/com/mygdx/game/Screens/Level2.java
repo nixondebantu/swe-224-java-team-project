@@ -140,6 +140,11 @@ public class Level2 implements Screen {
 
         game.batch.end();
 
+        if (score == 20) {
+            BgAssets.score = 20;
+            game.setScreen(new LoadingScreen(game));
+            this.dispose();
+        }
 
     }
 
