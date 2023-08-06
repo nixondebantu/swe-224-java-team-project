@@ -71,6 +71,11 @@ public class Level3 implements Screen {
         game.batch.draw(BgAssets.bgLvl3_1,bg_x1,0);
         game.batch.draw(BgAssets.bgLvl3_2,bg_x2,0);
 
+        if (score == 10) {
+            game.setScreen(new WinScreen(game));
+            this.dispose();
+        }
+
         if (!scrollPause && !gamePause) {       //play screen
             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
                 scrollPause = true;

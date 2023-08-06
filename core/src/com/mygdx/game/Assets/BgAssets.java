@@ -21,6 +21,7 @@ public class BgAssets {
     public static Music explosion  = Gdx.audio.newMusic(Gdx.files.internal("sounds/explosion.mp3"));
     public static Music point = Gdx.audio.newMusic(Gdx.files.internal("sounds/points.mp3"));
     public static Music Bg_music = Gdx.audio.newMusic(Gdx.files.internal("sounds/bg_music.mp3"));
+    public static Texture bgWin = new Texture("bg/bgWin.png");
 
 
     public static Texture[] asteroids = new Texture[7];
