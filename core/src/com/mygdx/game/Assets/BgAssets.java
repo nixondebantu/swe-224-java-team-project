@@ -1,6 +1,7 @@
 package com.mygdx.game.Assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -14,8 +15,9 @@ public class BgAssets {
     public static Texture laserB = new Texture("bg/LaserB.png");
     public static Texture laserG = new Texture("bg/LaserG.png");
     public static Sound clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click.mp3"));
-    public static Sound explosion  = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
-    public static Sound point = Gdx.audio.newSound(Gdx.files.internal("sounds/points.mp3"));
+    public static Music explosion  = Gdx.audio.newMusic(Gdx.files.internal("sounds/explosion.mp3"));
+    public static Music point = Gdx.audio.newMusic(Gdx.files.internal("sounds/points.mp3"));
+    public static Music Bg_music = Gdx.audio.newMusic(Gdx.files.internal("sounds/bg_music.mp3"));
 
 
     public static Texture[] asteroids = new Texture[6];

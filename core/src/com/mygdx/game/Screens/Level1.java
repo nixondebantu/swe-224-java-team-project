@@ -3,6 +3,7 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
@@ -56,7 +57,7 @@ public class Level1 implements Screen {
     }
     @Override
     public void show() {
-
+        BgAssets.Bg_music.play();
     }
 
     @Override
@@ -156,10 +157,42 @@ public class Level1 implements Screen {
 
     }
     public void collsion(){
+
+
         if((x+150 <= xL[0]+90 && x+150 >= xL[0]+60) || (x <= xL[0]+90 && x >= xL[0])  ){
             if((y+120 <= yL[0]+332 && y+120 >= yL[0]+60) || (y <= yL[0]+272 && y >= yL[0])){
+                if(!BgAssets.explosion.isPlaying()){
+                    BgAssets.explosion.play();
+                }
                 Explosions.add(new explosions(x+125,y+25));
-                //BgAssets.explosion.play();
+
+//                notPause = false;
+//                game.pause();
+
+            }
+        }
+
+
+
+
+        if((x+150 <= xL[2]+90 && x+150 >= xL[2]+60) || (x <= xL[2]+90 && x >= xL[2])  ){
+            if((y+120 <= yL[2]+332 && y+120 >= yL[2]+60) || (y <= yL[2]+272 && y >= yL[2])){
+                if(!BgAssets.explosion.isPlaying()){
+                    BgAssets.explosion.play();
+                }
+                Explosions.add(new explosions(x+125,y+25));
+//                notPause = false;
+//                game.pause();
+
+
+            }
+        }
+        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[2]+209 && x >= xL[2])  ){
+            if((y+120 <= yL[2]+250 && y+120 >= yL[2]+80) || (y <= yL[2]+170 && y >= yL[2]+10)){
+                if(!BgAssets.explosion.isPlaying()){
+                    BgAssets.explosion.play();
+                }
+                Explosions.add(new explosions(x+125,y+25));
 //                notPause = false;
 //                game.pause();
 
@@ -174,27 +207,6 @@ public class Level1 implements Screen {
                 explosionsToRemove.add(Explosions);
         }
         Explosions.removeAll(explosionsToRemove);
-
-
-        if((x+150 <= xL[2]+90 && x+150 >= xL[2]+60) || (x <= xL[2]+90 && x >= xL[2])  ){
-            if((y+120 <= yL[2]+332 && y+120 >= yL[2]+60) || (y <= yL[2]+272 && y >= yL[2])){
-                //BgAssets.explosion.play();
-//                notPause = false;
-//                game.pause();
-
-
-            }
-        }
-        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[2]+209 && x >= xL[2])  ){
-            if((y+120 <= yL[2]+250 && y+120 >= yL[2]+80) || (y <= yL[2]+170 && y >= yL[2]+10)){
-
-                //BgAssets.explosion.play();
-//                notPause = false;
-//                game.pause();
-
-
-            }
-        }
 
     }
 }
