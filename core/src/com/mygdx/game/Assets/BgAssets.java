@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class BgAssets {
     public static Texture bgLvl1_1 = new Texture("bg/bgLvl1.1.jpg");
@@ -24,5 +25,6 @@ public class BgAssets {
 //    asteroids[0] = new Texture("bg/LaserG.png");
 
     public static Texture coin = new Texture("coin.png");
+    public static BitmapFont font = new BitmapFont(Gdx.files.internal("font/score.fnt"));
 
 }

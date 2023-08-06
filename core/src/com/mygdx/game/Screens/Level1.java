@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
 
@@ -100,6 +101,10 @@ public class Level1 implements Screen {
         //bg render
         game.batch.draw(BgAssets.bgLvl1_1,bg_x1,0);
         game.batch.draw(BgAssets.bgLvl1_2,bg_x2,0);
+
+        //score
+        GlyphLayout scoreLatout = new GlyphLayout(BgAssets.font,"Score: "+score);
+        BgAssets.font.draw(game.batch,scoreLatout,10,MyGame.HEIGHT-10);
 
         //asteroids
         for (int i=0;i<4;i++){
