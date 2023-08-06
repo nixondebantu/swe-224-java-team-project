@@ -3,18 +3,14 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
-
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Level1 implements Screen {
-
+public class Level3 implements Screen {
     MyGame game;
     public static float speed = 220;
     public int score;
@@ -30,26 +26,29 @@ public class Level1 implements Screen {
     float bg_x1=0,bg_x2=1280;
     int bg_speed = 4;
 
+
     //lasers
-    float xL[] = {MyGame.WIDTH,MyGame.WIDTH*1.5f,MyGame.WIDTH*2f,MyGame.WIDTH*2.5f};
-    int yL[] = new int[4];
+    float xL[] = {MyGame.WIDTH,MyGame.WIDTH*1.5f,MyGame.WIDTH*2f,MyGame.WIDTH*2.5f,MyGame.WIDTH*3f,MyGame.WIDTH*3.5f,MyGame.WIDTH*4f};
+    int yL[] = new int[7];;
 
     //explosion
     ArrayList<explosions> Explosions;
 
     Texture ship = new Texture("ship.png");
-    public Level1(MyGame game){
+
+    public Level3(MyGame game){
         this.game = game;
         x = 30;
         y = MyGame.HEIGHT/2f - 100f;
-        for(int i=0 ; i<4 ; i++){
-            yL[i] = random.nextInt(440) - 10;
-        }
+
 
         BgAssets.asteroids[0] = new Texture("bg/LaserB.png");
-        BgAssets.asteroids[2] = new Texture("bg/LaserG.png");
         BgAssets.asteroids[1] = new Texture("asteroids/1.png");
+        BgAssets.asteroids[2] = new Texture("asteroids/3.png");
         BgAssets.asteroids[3] = new Texture("coin.png");
+        BgAssets.asteroids[4] = new Texture("bg/LaserG.png");
+        BgAssets.asteroids[5] = new Texture("asteroids/2.png");
+        BgAssets.asteroids[6] = new Texture("asteroids/4.png");
 
         Explosions = new ArrayList<explosions>();
 
@@ -57,12 +56,10 @@ public class Level1 implements Screen {
     }
     @Override
     public void show() {
-
     }
 
     @Override
     public void render(float delta) {
-
         if (notPause){
             //buttons
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -79,12 +76,12 @@ public class Level1 implements Screen {
             if (bg_x2<-1280) bg_x2 = 1280;
 
             //leasers
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 7; i++) {
                 xL[i] -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
                 if (xL[i] < -1280) {
                     //BgAssets.point.play();
                     score++;
-                    xL[i] = MyGame.WIDTH;
+                    xL[i] = 3840;
                     yL[i] = random.nextInt(440) - 10;
                 }
             }
@@ -93,15 +90,11 @@ public class Level1 implements Screen {
 
         game.batch.begin();
         //bg render
-        game.batch.draw(BgAssets.bgLvl1_1,bg_x1,0);
-        game.batch.draw(BgAssets.bgLvl1_2,bg_x2,0);
-
-        //score
-        GlyphLayout scoreLatout = new GlyphLayout(BgAssets.font,"Score: "+score);
-        BgAssets.font.draw(game.batch,scoreLatout,10,MyGame.HEIGHT-10);
+        game.batch.draw(BgAssets.bgLvl3_1,bg_x1,0);
+        game.batch.draw(BgAssets.bgLvl3_2,bg_x2,0);
 
         //asteroids
-        for (int i=0;i<4;i++){
+        for (int i=0;i<7;i++){
             game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
         }
         //ship
@@ -112,7 +105,6 @@ public class Level1 implements Screen {
             Explosions.render(game.batch);
         }
         game.batch.end();
-
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             if(notPause) {
@@ -129,6 +121,7 @@ public class Level1 implements Screen {
                 throw new RuntimeException(e);
             }
         }
+
     }
 
     @Override
@@ -155,6 +148,7 @@ public class Level1 implements Screen {
     public void dispose() {
 
     }
+
     public void collsion(){
 
 
@@ -208,4 +202,5 @@ public class Level1 implements Screen {
         Explosions.removeAll(explosionsToRemove);
 
     }
+
 }

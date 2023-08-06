@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class BgAssets {
     public static Texture bgLvl1_1 = new Texture("bg/bgLvl1.1.jpg");
     public static Texture bgLvl1_2 = new Texture("bg/bgLvl1.2.jpg");
-    public static Texture bgLvl2 = new Texture("bg/bgLvl2.jpg");
-    public static Texture bgLvl3 = new Texture("bg/bgLvl3.jpg");
+    public static Texture bgLvl2_1 = new Texture("bg/bgLvl2.1.jpg");
+    public static Texture bgLvl2_2 = new Texture("bg/bgLvl2.2.jpg");
+    public static Texture bgLvl3_1 = new Texture("bg/bgLvl3.1.jpg");
+    public static Texture bgLvl3_2 = new Texture("bg/bgLvl3.2.jpg");
     public static Texture bgMenu = new Texture("bg/bgMenu.jpg");
     public static Texture activeInsBtn = new Texture("menuBtn/activeInsBtn.png");
     public static Texture laserB = new Texture("bg/LaserB.png");
@@ -21,7 +23,7 @@ public class BgAssets {
     public static Music Bg_music = Gdx.audio.newMusic(Gdx.files.internal("sounds/bg_music.mp3"));
 
 
-    public static Texture[] asteroids = new Texture[6];
+    public static Texture[] asteroids = new Texture[7];
 //    asteroids[0] = new Texture("bg/LaserG.png");
 
     public static Texture coin = new Texture("coin.png");

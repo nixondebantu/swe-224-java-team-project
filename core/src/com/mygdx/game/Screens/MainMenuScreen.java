@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -97,6 +98,13 @@ public class MainMenuScreen implements Screen {
         }
         else {
             game.batch.draw(inactExitBtn,33,84);
+        }
+
+        //for test
+        if (Gdx.input.isKeyPressed(Input.Keys.F1)){
+            BgAssets.clickSound.play();
+            this.dispose();
+            game.setScreen(new Level3(game));
         }
 
 
