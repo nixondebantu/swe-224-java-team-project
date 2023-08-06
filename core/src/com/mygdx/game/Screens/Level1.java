@@ -17,7 +17,9 @@ public class Level1 implements Screen {
 
     MyGame game;
     public static float speed = 220;
-    private boolean notPause = true;
+    private boolean gamePause;
+    private boolean scrollPause;
+    private int yPause;
     Random random = new Random();
 
     float x,y;
@@ -53,6 +55,9 @@ public class Level1 implements Screen {
 
         Explosions = new ArrayList<explosions>();
 
+        gamePause = false;
+        scrollPause = false;
+        yPause = 0;
 
     }
     @Override
@@ -63,7 +68,16 @@ public class Level1 implements Screen {
     @Override
     public void render(float delta) {
 
-        if (notPause){
+        game.batch.begin();
+        //bg render
+        game.batch.draw(BgAssets.bgLvl1_1,bg_x1,0);
+        game.batch.draw(BgAssets.bgLvl1_2,bg_x2,0);
+
+        if (!scrollPause && !gamePause) {       //play screen
+            if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+                scrollPause = true;
+                gamePause = true;
+            }
             if(BgAssets.score==10) {
                 game.setScreen(new LoadingScreen(game));
                 this.dispose();
@@ -118,53 +132,50 @@ public class Level1 implements Screen {
                     yL[i] = random.nextInt(440) - 10;
                 }
             }
+            //score
+            GlyphLayout scoreLatout = new GlyphLayout(BgAssets.font,"Score: "+BgAssets.score);
+            BgAssets.font.draw(game.batch,scoreLatout,50,MyGame.HEIGHT-50);
 
+            //asteroids
+            for (int i=0;i<4;i++){
+                if(i==3){
+                    if(Iscollision[3])game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
+                    else continue;
+                }
+                game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
 
-        }
-
-        game.batch.begin();
-        //bg render
-        game.batch.draw(BgAssets.bgLvl1_1,bg_x1,0);
-        game.batch.draw(BgAssets.bgLvl1_2,bg_x2,0);
-
-        //score
-        GlyphLayout scoreLatout = new GlyphLayout(BgAssets.font,"Score: "+BgAssets.score);
-        BgAssets.font.draw(game.batch,scoreLatout,50,MyGame.HEIGHT-50);
-
-        //asteroids
-        for (int i=0;i<4;i++){
-            if(i==3){
-                if(Iscollision[3])game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
-                else continue;
             }
-            game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
+            //ship
+            game.batch.draw(ship,x,y);
+            collsion();
 
+            for (explosions Explosions : Explosions) {
+                Explosions.render(game.batch);
+            }
         }
-        //ship
-        game.batch.draw(ship,x,y);
-        collsion();
+        else if (scrollPause && gamePause) {    //play-pause screen
+            if (yPause < 360) {
+                yPause += 10;
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+                gamePause = false;
+            }
+        }
+        else {      //pause-play screen
+            if (yPause < 840) {
+                yPause += 10;
+            }
+            else {
+                yPause = 0;
+                scrollPause = false;
+            }
+        }
 
-        for (explosions Explosions : Explosions) {
-            Explosions.render(game.batch);
-        }
+
+
         game.batch.end();
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            if(notPause) {
-                notPause = false;
-                game.pause();
-            }
-            else {
-                notPause = true;
-                game.resume();
-            }
-            try {               //delay maker
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
     @Override
