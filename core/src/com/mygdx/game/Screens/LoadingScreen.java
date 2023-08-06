@@ -3,9 +3,8 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
 
@@ -13,18 +12,12 @@ public class LoadingScreen implements Screen {
 
     MyGame game;
 
-    Animation[] loading;
-    TextureRegion[] loadSheet = new TextureRegion[20];
-    private float animationSpeed = 0.5f;
-    float statetime;
+    int xLoad;      //loading bar controller
+    ShapeRenderer loadBar;
     public LoadingScreen(MyGame game){
         this.game = game;
-        loading = new Animation[20];
-        TextureRegion[][] loadSprite = TextureRegion.split(new Texture("load.png"),900,90);
-//        loading[20] = new Animation(animationSpeed,loadSprite[0]);
-        for(int i=0;i<20;i++){
-            loading[i] = new Animation(animationSpeed,loadSprite[i]);
-        }
+        loadBar = new ShapeRenderer();
+        xLoad = 0;  //initial bar width 0
     }
     @Override
     public void show() {
@@ -33,19 +26,25 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        statetime += Gdx.graphics.getDeltaTime();
 
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
             BgAssets.clickSound.play();
             this.dispose();
             game.setScreen(new Level1(game));
-//            game.setScreen(new MainGameScreen(game));
         }
         game.batch.begin();
 
         game.batch.draw(BgAssets.bgMenu,0,0);
-//        game.batch.draw((Texture) loading[20].getKeyFrame(statetime,false),600,800);
+
         game.batch.end();
+
+        if (xLoad < 800){
+            loadBar.begin(ShapeRenderer.ShapeType.Filled);
+            loadBar.setColor(Color.WHITE);
+            loadBar.rect(250, 100, 10+xLoad, 20);
+            loadBar.end();
+            xLoad+=5;
+        }
     }
 
     @Override
