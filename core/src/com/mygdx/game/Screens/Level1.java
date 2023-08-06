@@ -154,7 +154,7 @@ public class Level1 implements Screen {
             }
         }
         else if (scrollPause && gamePause) {    //play-pause screen
-            if (yPause < 360) {
+            if (yPause < 400) {
                 yPause += 10;
             }
             else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -172,7 +172,7 @@ public class Level1 implements Screen {
         }
 
         if (gamePause || scrollPause) {             //pause display message drawing
-            GlyphLayout pauseMessage = new GlyphLayout(BgAssets.font,"Game Paused\nPress:\nEsc - Resume\nR - Restart\nH - Home");
+            GlyphLayout pauseMessage = new GlyphLayout(BgAssets.font,"Level:1\nGame Paused\nPress:\nEsc - Resume\nR - Restart\nH - Home");
             BgAssets.font.draw(game.batch,pauseMessage,420,yPause);
         }
 
