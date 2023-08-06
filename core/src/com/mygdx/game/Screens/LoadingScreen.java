@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Assets.BgAssets;
@@ -17,12 +18,14 @@ public class LoadingScreen implements Screen {
     ShapeRenderer loadBar;
     GlyphLayout loadingText;
     GlyphLayout clickText;
+    Texture ship;
     public LoadingScreen(MyGame game){
         this.game = game;
         loadBar = new ShapeRenderer();
         xLoad = 0;  //initial bar width 0
         loadingText = new GlyphLayout(BgAssets.font,"LOADING...");
         clickText = new GlyphLayout(BgAssets.font,"PRESS ANY KEY TO CONTINUE");
+        ship = new Texture(Gdx.files.internal("ship.png"));
     }
     @Override
     public void show() {
@@ -51,6 +54,7 @@ public class LoadingScreen implements Screen {
         game.batch.draw(BgAssets.bgMenu,0,0);
         if (xLoad < 800) {
             BgAssets.font.draw(game.batch,loadingText,500,80);
+            game.batch.draw(ship,230 + xLoad,90,65,50);
         }
         else {
             BgAssets.font.draw(game.batch,clickText,200,100);
