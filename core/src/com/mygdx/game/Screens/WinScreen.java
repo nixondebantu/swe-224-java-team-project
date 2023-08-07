@@ -21,6 +21,17 @@ public class WinScreen implements Screen {
         game.batch.begin();
 
         game.batch.draw(BgAssets.bgWin,0,0);
+        if (Gdx.input.getX() >=  540 && Gdx.input.getX() <=740 && Gdx.input.getY() >= 590 && Gdx.input.getY() <= 640) {
+            game.batch.draw(BgAssets.homeBtn,530,77,220,56);
+            if (Gdx.input.isTouched()) {
+                BgAssets.clickSound.play();
+                game.setScreen(new MainMenuScreen(game));
+                this.dispose();
+            }
+        }
+        else {
+            game.batch.draw(BgAssets.homeBtn,540,80,200,50);
+        }
 
 
         game.batch.end();
