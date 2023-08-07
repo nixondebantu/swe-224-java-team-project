@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
@@ -32,7 +33,11 @@ public class WinScreen implements Screen {
         else {
             game.batch.draw(BgAssets.homeBtn,540,80,200,50);
         }
-
+        if (Gdx.input.isKeyPressed(Input.Keys.H)) {
+            BgAssets.clickSound.play();
+            game.setScreen(new MainMenuScreen(game));
+            this.dispose();
+        }
 
         game.batch.end();
     }

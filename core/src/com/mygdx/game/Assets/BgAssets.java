@@ -23,6 +23,8 @@ public class BgAssets {
     public static Music Bg_music = Gdx.audio.newMusic(Gdx.files.internal("sounds/bg_music.mp3"));
     public static Texture bgWin = new Texture("bg/bgWin.png");
     public static Texture homeBtn = new Texture("bg/homeBtn.png");
+    public static Texture bgOver = new Texture("bg/bgOver.png");
+    public static Texture restartBtn = new Texture("bg/restartBtn.png");
 
 
     public static Texture[] asteroids = new Texture[7];
