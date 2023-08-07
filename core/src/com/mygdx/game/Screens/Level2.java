@@ -44,17 +44,16 @@ public class Level2 implements Screen {
             yL[i] = random.nextInt(440) - 10;
         }
 
-        BgAssets.asteroids[0] = new Texture("bg/LaserB.png");
+        BgAssets.asteroids[0] = new Texture("asteroids/ast1.png");
+        BgAssets.asteroids[2] = new Texture("asteroids/ast2.png");
         BgAssets.asteroids[1] = new Texture("asteroids/1.png");
-        BgAssets.asteroids[2] = new Texture("bg/LaserG.png");
-        BgAssets.asteroids[3] = new Texture("coin.png");
-        BgAssets.asteroids[4] = new Texture("asteroids/2.png");
 
         Explosions = new ArrayList<explosions>();
 
         gamePause = false;
         scrollPause = false;
         yPause = 0;
+        MyGame.life = 3;
 
     }
 
@@ -95,17 +94,20 @@ public class Level2 implements Screen {
             BgAssets.font.draw(game.batch,scoreLatout,MyGame.WIDTH - 300,MyGame.HEIGHT-50);
 
             //leasers
-            for (int i = 0; i < 5; i++) {
-                xL[i] -= (MainGameScreen.speed + score * 10) * Gdx.graphics.getDeltaTime() * 2;
-                if (xL[i] < -1280) {
-                    //BgAssets.point.play();
-                    score += 2 ;
+            for (int i = 0; i < 3; i++) {
+
+                xL[i] -= (MainGameScreen.speed + BgAssets.score * 10) * Gdx.graphics.getDeltaTime() * 2;
+                if (xL[i] < -300) {
+                    if( yL[i] != 800){
+                        BgAssets.point.play();
+                        score++;
+                    }
                     xL[i] = MyGame.WIDTH;
                     yL[i] = random.nextInt(440) - 10;
                 }
             }
             //asteroids
-            for (int i=0;i<5;i++){
+            for (int i=0;i<3;i++){
                 game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
             }
             //ship
@@ -158,6 +160,11 @@ public class Level2 implements Screen {
             game.setScreen(new LoadingScreen(game));
             this.dispose();
         }
+        if (MyGame.life == 0) {
+            game.setScreen(new OverScreen(game));
+            BgAssets.score = 10;
+            this.dispose();
+        }
 
     }
 
@@ -189,45 +196,21 @@ public class Level2 implements Screen {
     public void collsion(){
 
 
-        if((x+150 <= xL[0]+90 && x+150 >= xL[0]+60) || (x <= xL[0]+90 && x >= xL[0])  ){
-            if((y+120 <= yL[0]+332 && y+120 >= yL[0]+60) || (y <= yL[0]+272 && y >= yL[0])){
-                if(!BgAssets.explosion.isPlaying()){
-                    BgAssets.explosion.play();
+        for (int i = 0 ; i < 3 ; i++) {
+            if ((x <= xL[i] && xL[i] <= x+150) || (x-150 <= xL[i] && xL[i] <= x)) {
+                if ((y + 56 <= yL[i] && yL[i] + 150 <= y + 112) || (y + 56 <= yL[i] && yL[i] <= y + 112) ||
+                        (yL[i] <= y + 56 && yL[i] <= y+112 && y + 56 <= yL[i] + 150 && y + 112 <= yL[i] + 150)){
+                    yL[i] = 800;
+                    MyGame.life--;
+                    if (!BgAssets.explosion.isPlaying()){
+                        BgAssets.explosion.play();
+                    }
+                    Explosions.add(new explosions(x+125,y+25));
                 }
-                Explosions.add(new explosions(x+125,y+25));
-
-//                notPause = false;
-//                game.pause();
-
             }
         }
 
 
-
-
-        if((x+150 <= xL[2]+90 && x+150 >= xL[2]+60) || (x <= xL[2]+90 && x >= xL[2])  ){
-            if((y+120 <= yL[2]+332 && y+120 >= yL[2]+60) || (y <= yL[2]+272 && y >= yL[2])){
-                if(!BgAssets.explosion.isPlaying()){
-                    BgAssets.explosion.play();
-                }
-                Explosions.add(new explosions(x+125,y+25));
-//                notPause = false;
-//                game.pause();
-
-
-            }
-        }
-        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[1]+209 && x >= xL[1])  ){
-            if((y+120 <= yL[1]+250 && y+120 >= yL[1]+80) || (y <= yL[1]+170 && y >= yL[1]+10)){
-                if(!BgAssets.explosion.isPlaying()){
-                    BgAssets.explosion.play();
-                }
-                Explosions.add(new explosions(x+125,y+25));
-//                notPause = false;
-//                game.pause();
-
-            }
-        }
 
         //Update explosions
         ArrayList<explosions> explosionsToRemove = new ArrayList<explosions>();

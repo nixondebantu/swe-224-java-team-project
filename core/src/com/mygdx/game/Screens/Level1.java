@@ -48,16 +48,16 @@ public class Level1 implements Screen {
             yL[i] = random.nextInt(440) - 10;
         }
 
-        BgAssets.asteroids[0] = new Texture("bg/LaserB.png");
-        BgAssets.asteroids[2] = new Texture("bg/LaserG.png");
+        BgAssets.asteroids[0] = new Texture("asteroids/ast1.png");
+        BgAssets.asteroids[2] = new Texture("asteroids/ast2.png");
         BgAssets.asteroids[1] = new Texture("asteroids/1.png");
-        BgAssets.asteroids[3] = new Texture("coin.png");
 
         Explosions = new ArrayList<explosions>();
 
         gamePause = false;
         scrollPause = false;
         yPause = 0;
+        MyGame.life = 3;
 
     }
     @Override
@@ -98,32 +98,10 @@ public class Level1 implements Screen {
             if (bg_x2<-1280) bg_x2 = 1280;
 
             //leasers
-            for (int i = 0; i < 4; i++) {
-                if(i==3){
-                    xL[i] -= (MainGameScreen.speed + BgAssets.score * 10) * Gdx.graphics.getDeltaTime() * 2;
-                    if (xL[i] < -300) {
-                        //BgAssets.point.play();
-                        //score++;
-                        if( Iscollision[i] == false ){
-                            BgAssets.point.play();
-                            BgAssets.score++;
-                            Iscollision[i] = true;
-                        }
-                        xL[i] = MyGame.WIDTH;
-                        yL[i] = random.nextInt(440) - 10;
-                    }
-
-                    continue;
-                }
-
-
-
-
+            for (int i = 0; i < 3; i++) {
 
                 xL[i] -= (MainGameScreen.speed + BgAssets.score * 10) * Gdx.graphics.getDeltaTime() * 2;
                 if (xL[i] < -300) {
-                    //BgAssets.point.play();
-                    //score++;
                     if( Iscollision[i] ){
                         BgAssets.point.play();
                         BgAssets.score++;
@@ -138,11 +116,7 @@ public class Level1 implements Screen {
             BgAssets.font.draw(game.batch,scoreLatout,MyGame.WIDTH - 300,MyGame.HEIGHT-50);
 
             //asteroids
-            for (int i=0;i<4;i++){
-                if(i==3){
-                    if(Iscollision[3])game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
-                    else continue;
-                }
+            for (int i=0;i<3;i++){
                 game.batch.draw(BgAssets.asteroids[i],xL[i],yL[i]);
 
             }
@@ -192,6 +166,10 @@ public class Level1 implements Screen {
 
         game.batch.end();
 
+        if (MyGame.life == 0) {
+            game.setScreen(new OverScreen(game));
+            this.dispose();
+        }
 
     }
 
@@ -222,52 +200,19 @@ public class Level1 implements Screen {
     public void collsion(){
 
 
-        if((x+150 <= xL[0]+90 && x+150 >= xL[0]+60) || (x <= xL[0]+90 && x >= xL[0])  ){
-            if((y+120 <= yL[0]+332 && y+120 >= yL[0]+60) || (y <= yL[0]+272 && y >= yL[0])){
-                if(!BgAssets.explosion.isPlaying()){
-                    BgAssets.explosion.play();
+        for (int i = 0 ; i < 3 ; i++) {
+            if ((x <= xL[i] && xL[i] <= x+150) || (x-150 <= xL[i] && xL[i] <= x)) {
+                if ((y + 56 <= yL[i] && yL[i] + 150 <= y + 112) || (y + 56 <= yL[i] && yL[i] <= y + 112) ||
+                        (yL[i] <= y + 56 && yL[i] <= y+112 && y + 56 <= yL[i] + 150 && y + 112 <= yL[i] + 150)){
+                    yL[i] = 800;
+                    MyGame.life--;
+                    if (!BgAssets.explosion.isPlaying()){
+                        BgAssets.explosion.play();
+                    }
+                    Explosions.add(new explosions(x+125,y+25));
                 }
-                Explosions.add(new explosions(x+125,y+25));
-                Iscollision[0] = false;
-//                notPause = false;
-//                game.pause();
-
             }
         }
-
-
-
-
-        if((x+150 <= xL[2]+90 && x+150 >= xL[2]+60) || (x <= xL[2]+90 && x >= xL[2])  ){
-            if((y+120 <= yL[2]+332 && y+120 >= yL[2]+60) || (y <= yL[2]+272 && y >= yL[2])){
-                if(!BgAssets.explosion.isPlaying()){
-                    BgAssets.explosion.play();
-                }
-                Explosions.add(new explosions(x+125,y+25));
-//                notPause = false;
-//                game.pause();
-                Iscollision[2] = false;
-
-            }
-        }
-        if((x+150 <= xL[1]+209 && x+150 >= xL[1]+80) || (x <= xL[2]+209 && x >= xL[1])  ){
-            if((y+120 <= yL[1]+250 && y+120 >= yL[1]+80) || (y <= yL[1]+170 && y >= yL[1]+10)){
-                if(!BgAssets.explosion.isPlaying()){
-                    BgAssets.explosion.play();
-                }
-                Explosions.add(new explosions(x+125,y+25));
-//                notPause = false;
-//                game.pause();
-                Iscollision[1] = false;
-            }
-        }
-        if((x+150 <= xL[3]+100 && x+150 >= xL[3]) || (x <= xL[3]+100 && x >= xL[3])  ){
-            if((y+120 <= yL[3]+101 && y+120 >= yL[3]) || (y <= yL[3]+101 && y >= yL[3])){
-
-                Iscollision[3] = false;
-            }
-        }
-
 
 
 
