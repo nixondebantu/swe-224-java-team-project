@@ -5,6 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.mygdx.game.Assets.BgAssets;
 import com.mygdx.game.MyGame;
 
 public class Instruction implements Screen {
@@ -28,6 +30,7 @@ public class Instruction implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.batch.draw(ins_bg,0,0);
+        game.batch.draw(BgAssets.bgInst,0,0);
         if( Gdx.input.getX() >= 80 && Gdx.input.getX() <= 343 && (720 - Gdx.input.getY()) >=560 && (720 - Gdx.input.getY()) <=640  ){
             if(Gdx.input.isTouched()){
                 click_sound.play();
