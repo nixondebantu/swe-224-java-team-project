@@ -26,6 +26,8 @@ public class BgAssets {
     public static Texture bgOver = new Texture("bg/bgOver.png");
     public static Texture restartBtn = new Texture("bg/restartBtn.png");
     public static Texture bgInst = new Texture("bg/bgInst.png");
+    public static Texture skipBtn = new Texture("screens/skipBtn.png");
+    public static Texture introText = new Texture("screens/introText.png");
 
 
     public static Texture[] asteroids = new Texture[7];

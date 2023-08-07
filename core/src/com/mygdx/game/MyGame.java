@@ -8,10 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Assets.BgAssets;
-import com.mygdx.game.Screens.MainGameScreen;
-import com.mygdx.game.Screens.MainMenuScreen;
-import com.mygdx.game.Screens.OverScreen;
-import com.mygdx.game.Screens.WinScreen;
+import com.mygdx.game.Screens.*;
 
 public class MyGame extends Game {
 	public SpriteBatch batch;
@@ -22,7 +19,7 @@ public class MyGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new IntroScreen(this));
 	}
 
 	@Override
