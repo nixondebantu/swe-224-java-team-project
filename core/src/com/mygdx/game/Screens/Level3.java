@@ -80,6 +80,7 @@ public class Level3 implements Screen {
             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
                 scrollPause = true;
                 gamePause = true;
+                BgAssets.clickSound.play();
             }
             //buttons
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -128,6 +129,18 @@ public class Level3 implements Screen {
             }
             else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
                 gamePause = false;
+                BgAssets.clickSound.play();
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.H)) {    //Home key
+                BgAssets.clickSound.play();
+                game.setScreen(new MainMenuScreen(game));
+                this.dispose();
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.R)) {    //Restart key
+                BgAssets.clickSound.play();
+                BgAssets.score = 20;
+                game.setScreen(new LoadingScreen(game));
+                this.dispose();
             }
         }
         else {      //pause-play screen

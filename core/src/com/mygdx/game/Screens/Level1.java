@@ -77,6 +77,7 @@ public class Level1 implements Screen {
             if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
                 scrollPause = true;
                 gamePause = true;
+                BgAssets.clickSound.play();
             }
             if(BgAssets.score==10) {
                 game.setScreen(new LoadingScreen(game));
@@ -157,8 +158,20 @@ public class Level1 implements Screen {
             if (yPause < 400) {
                 yPause += 10;
             }
-            else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { //Resume key
                 gamePause = false;
+                BgAssets.clickSound.play();
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.H)) {    //Home key
+                BgAssets.clickSound.play();
+                game.setScreen(new MainMenuScreen(game));
+                this.dispose();
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.R)) {    //Restart key
+                BgAssets.clickSound.play();
+                BgAssets.score = 0;
+                game.setScreen(new LoadingScreen(game));
+                this.dispose();
             }
         }
         else {      //pause-play screen
